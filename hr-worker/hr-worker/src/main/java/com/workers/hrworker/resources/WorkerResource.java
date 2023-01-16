@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 @RestController
 @EnableEurekaClient
+@RefreshScope
 @RequestMapping(value = "/workers")
 public class WorkerResource {
 
@@ -28,7 +30,7 @@ public class WorkerResource {
     @Autowired
     private WorkerRepository workerRepository;
 
-    @Value("${test.config:teste}")
+    @Value("${test.config}")
     private String testConfig;
 
     @GetMapping
@@ -37,7 +39,7 @@ public class WorkerResource {
     }
 
     @GetMapping(value = "/configs")
-    public ResponseEntity<Void> findConfig(@PathVariable Long id) {
+    public ResponseEntity<Void> findConfig() {
         logger.info("CONFIG = " + testConfig);
         return ResponseEntity.noContent().build();
     }
