@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@EnableEurekaClient
 @RefreshScope
 @RequestMapping(value = "/workers")
 public class WorkerResource {
